@@ -8,3 +8,10 @@ TODO
 
 # Build
 TODO
+
+# TODO
+- Better, modular structure
+- Support loaders
+- Improve options and defaults merging
+- Remove URL as callback 'option', not needed
+- Cleanup (e.g. 'iphone' -> 'touch')
