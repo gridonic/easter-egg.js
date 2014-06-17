@@ -1,0 +1,11 @@
+/*!
+ * easter-egg.js v<%= vars.version %>
+ * https://github.com/gridonic/easter-egg.js
+ *
+ * Originally based on: https://github.com/snaptortoise/konami-js/
+ *
+ * Copyright <%= vars.year %> @gridonic
+ * Released under the MIT license
+ *
+ * Build: <%= vars.date %>
+ */

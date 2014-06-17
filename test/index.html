@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>easter-egg.js tests</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <h1>easter-egg.js</h1>
+        <p>Tests</p>
+        <script src="../dist/easter-egg.js"></script>
+        <script>
+            (function (EasterEgg) {
+                new EasterEgg({
+                    pattern: [38, 38, 40, 40, 37, 37, 39, 39],
+                    patternTouch: ['↑', '↑', '↓', '↓', '←', '←', '→', '→'],
+                    onSuccess: function() {
+                        console.log('Code was entered correctly!');
+                    },
+                    onCorrectInput: function(entered, current, pattern) {
+                        console.log('ENTERED: '+ entered);
+                        console.log('REST: '+ current);
+                    },
+                    onComboBreak: function(entered, current, pattern) {
+                        console.log('Combo breaker :(');
+                    }
+                });
+            })(window.EasterEgg);
+
+        </script>
+    </body>
+</html>
