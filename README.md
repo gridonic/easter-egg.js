@@ -10,11 +10,12 @@ Original code from konami.js (https://github.com/snaptortoise/konami-js/)
 TODO
 
 # Build
-```$ npm install```
 
+```$ npm install```
 ```$ gulp```
 
 # TODO
+- UMD support
 - Better, modular structure
 - Improve options and defaults merging
 - Remove URL as callback 'option', not needed
