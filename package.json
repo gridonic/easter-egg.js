@@ -1,7 +1,21 @@
 {
   "name": "easter-egg.js",
   "version": "0.5.0",
-  "private": false,
+  "description": "Listen to keystroke or swipe and touch events and react upon entry of a certain sequence.",
+  "main": "dist/easter-egg.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gridonic/easter-egg.js"
+  },
+  "keywords": [
+    "konami",
+    "easter egg"
+  ],
+  "author": "gridonic GmbH",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gridonic/easter-egg.js/issues"
+  },
   "devDependencies": {
     "gulp": "~3.6.2",
     "gulp-concat": "~2.2.0",
