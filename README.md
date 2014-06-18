@@ -4,14 +4,18 @@ easter-egg.js
 Listens to keystroke or swipe and touch events and react upon entry of a certain sequence.
 
 # Description
+
+Original code from konami.js (https://github.com/snaptortoise/konami-js/)
+
 TODO
 
 # Build
-TODO
+```$ npm install```
+
+```$ gulp```
 
 # TODO
 - Better, modular structure
-- Support loaders
 - Improve options and defaults merging
 - Remove URL as callback 'option', not needed
-- Cleanup (e.g. 'iphone' -> 'touch')
+- Cleanup
