@@ -1,0 +1,24 @@
+{
+  "name": "easter-egg.js",
+  "version": "0.5.0",
+  "main": ["dist/easter-egg.js"],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "components",
+    "gulpfile.js",
+    "src",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "authors": [
+    "dschenk"
+  ],
+  "description": "Listen to keystroke or swipe and touch events and react upon entry of a certain sequence.",
+  "keywords": [
+    "konami",
+    "easter egg"
+  ],
+  "license": "MIT"
+}
