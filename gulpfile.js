@@ -20,7 +20,7 @@ var pkg = require('./package.json');
 // Banner vars
 var bannerVars = {
   version: pkg.version,
-  date: now.getDay() + '.' + now.getMonth() + '.' + now.getFullYear(),
+  date: now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear(),
   year: now.getFullYear()
 };
 

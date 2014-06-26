@@ -7,7 +7,7 @@
  * Copyright 2014 @gridonic
  * Released under the MIT license
  *
- * Build: 3.5.2014
+ * Build: 26.6.2014
  */
 (function (global) {
 
