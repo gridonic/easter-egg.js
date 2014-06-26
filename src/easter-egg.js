@@ -187,19 +187,21 @@
       easter.load();
     }
 
-    global.easterEgg = easter;
-
-    if (typeof define === 'function' && define.amd) {
-      define([], function () {
-        return easter;
-      });
-    }
-
-    else if (typeof module !== 'undefined' && module !== null) {
-      module.exports = easter;
-    }
-
     return easter;
   };
+
+  global.easterEgg = EasterEgg;
+
+  if (typeof define === 'function' && define.amd) {
+    define([], function () {
+      return EasterEgg;
+    });
+  }
+
+  else if (typeof module !== 'undefined' && module !== null) {
+    module.exports = EasterEgg;
+  }
+
+  return EasterEgg;
 
 })(this);
