@@ -13,7 +13,9 @@
 
   'use strict';
 
-  var EasterEgg = function (options) {
+  var EasterEgg;
+
+  EasterEgg = function (options) {
 
     var defaultOptions = {
       // Konami Code: '↑', '↑', '↓', '↓', '←', '→', '→', '←', 'b', 'a'
@@ -48,7 +50,7 @@
 
           obj[type + fn] = function () {
             obj['e' + type + fn](window.event, ref_obj);
-          }
+          };
 
           obj.attachEvent('on' + type, obj[type + fn]);
         }
@@ -91,7 +93,7 @@
             easter.pattern = easter.orig_pattern;
           }
 
-          // Success, all keys have benn pressed
+          // Success, all keys have been pressed
           if (easter.pattern.length === 0) {
             easter.pattern = easter.orig_pattern;
             easter.code(link);
@@ -106,7 +108,7 @@
         this.touch.load(link);
       },
       code: function (link) {
-        window.location = link
+        window.location = link;
       },
       touch: {
         start_x: 0,
@@ -123,7 +125,7 @@
         load: function (link) {
 
           easter.addEvent(document, 'touchmove', function (e) {
-            if (e.touches.length == 1 && easter.touch.capture == true) {
+            if (e.touches.length == 1 && easter.touch.capture === true) {
               var touch = e.touches[0];
               easter.touch.stop_x = touch.pageX;
               easter.touch.stop_y = touch.pageY;
@@ -133,8 +135,8 @@
             }
           });
 
-          easter.addEvent(document, 'touchend', function (evt) {
-            if (easter.touch.tap == true) {
+          easter.addEvent(document, 'touchend', function () {
+            if (easter.touch.tap === true) {
               easter.touch.check_direction(link);
             }
           }, false);
@@ -152,7 +154,7 @@
           var x = ((this.start_x - this.stop_x) < 0) ? '→' : '←';
           var y = ((this.start_y - this.stop_y) < 0) ? '↓' : '↑';
           var result = (x_magnitude > y_magnitude) ? x : y;
-          result = (this.tap == true) ? 'tap' : result;
+          result = (this.tap === true) ? 'tap' : result;
 
           // Do something on any input
           if (typeof options.onInput === 'function') {
@@ -187,7 +189,7 @@
           }
         }
       }
-    }
+    };
 
     // Initialize easter with new window.location as onSuccess action
     typeof options.onSuccess === 'string' && easter.load(options.onSuccess);
