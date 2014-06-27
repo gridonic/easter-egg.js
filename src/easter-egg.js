@@ -25,6 +25,7 @@
 
     var easter = {
 
+      // Add Event
       addEvent: function (obj, type, fn, ref_obj) {
 
         if (obj.addEventListener) {
@@ -55,7 +56,7 @@
 
           var entered = e ? e.keyCode : event.keyCode; // TODO: where is event coming from?
 
-          // Do something on input
+          // Call a function on input
           if (typeof options.onInput === 'function') {
             options.onInput(entered, easter.pattern, easter.orig_pattern);
           }
@@ -73,11 +74,12 @@
           // If not, reset the current input
           else {
 
-            // Do something on combo breaker
+            // Call a function when combo is broken.
             if (typeof options.onComboBreak === 'function') {
               options.onComboBreak(entered, easter.pattern, easter.orig_pattern);
             }
 
+            // Reset the pattern, so we restart the whole function.
             easter.pattern = easter.orig_pattern;
           }
 
@@ -90,12 +92,14 @@
             return false;
           }
 
+          return true;
 
         }, this);
 
         this.touch.load(link);
       },
       code: function (link) {
+        console.log('code');
         window.location = link;
       },
       touch: {
@@ -105,16 +109,21 @@
         stop_y: 0,
         tap: false,
         capture: false,
-        orig_keys: options.patternTouch,
-        keys: options.patternTouch,
+        orig_patternTouch: options.patternTouch,
+        patternTouch: options.patternTouch,
         code: function (link) {
           easter.code(link);
         },
         load: function (link) {
 
-          easter.addEvent(document, 'touchmove', function (e) {
-            if (e.touches.length == 1 && easter.touch.capture === true) {
-              var touch = e.touches[0];
+          easter.addEvent(document, 'touchmove', function (touchEvent) {
+
+              //noinspection JSUnresolvedVariable
+              if (touchEvent.touches.length == 1 && easter.touch.capture === true) {
+
+              //noinspection JSUnresolvedVariable
+              var touch = touchEvent.touches[0];
+
               easter.touch.stop_x = touch.pageX;
               easter.touch.stop_y = touch.pageY;
               easter.touch.tap = false;
@@ -129,13 +138,20 @@
             }
           }, false);
 
-          easter.addEvent(document, 'touchstart', function (evt) {
-            easter.touch.start_x = evt.changedTouches[0].pageX;
-            easter.touch.start_y = evt.changedTouches[0].pageY;
-            easter.touch.tap = true;
+          easter.addEvent(document, 'touchstart', function (touchEvent) {
+
+            //noinspection JSUnresolvedVariable
+            easter.touch.start_x = touchEvent.changedTouches[0].pageX;
+
+            //noinspection JSUnresolvedVariable
+            easter.touch.start_y = touchEvent.changedTouches[0].pageY;
+
+              easter.touch.tap = true;
             easter.touch.capture = true;
           });
         },
+
+        // Check the direction of a touch move.
         check_direction: function (link) {
           var x_magnitude = Math.abs(this.start_x - this.stop_x);
           var y_magnitude = Math.abs(this.start_y - this.stop_y);
@@ -144,18 +160,18 @@
           var result = (x_magnitude > y_magnitude) ? x : y;
           result = (this.tap === true) ? 'tap' : result;
 
-          // Do something on any input
+          // Call a function on input
           if (typeof options.onInput === 'function') {
-            options.onInput(result, this.keys, this.orig_keys);
+            options.onInput(result, this.patternTouch, this.orig_patternTouch);
           }
 
-          // Current input is next key in line
-          if (result === this.keys[0]) {
-            this.keys = this.keys.slice(1, this.keys.length);
+          // Current input is next pattern in line
+          if (result === this.patternTouch[0]) {
+            this.patternTouch = this.patternTouch.slice(1, this.patternTouch.length);
 
             // Do something on correct input
             if (typeof options.onCorrectInput === 'function') {
-              options.onCorrectInput(result, this.keys, this.orig_keys);
+              options.onCorrectInput(result, this.patternTouch, this.orig_patternTouch);
             }
           }
 
@@ -164,15 +180,15 @@
 
             // Do something on combo breaker
             if (typeof options.onComboBreak === 'function') {
-              options.onComboBreak(result, this.keys, this.orig_keys);
+              options.onComboBreak(result, this.patternTouch, this.orig_patternTouch);
             }
 
-            this.keys = this.orig_keys;
+            this.patternTouch = this.orig_patternTouch;
           }
 
-          // Success, all keys have benn pressed
-          if (this.keys.length === 0) {
-            this.keys = this.orig_keys;
+          // Success, all patterns have benn pressed
+          if (this.patternTouch.length === 0) {
+            this.patternTouch = this.orig_patternTouch;
             this.code(link);
           }
         }
@@ -200,6 +216,7 @@
   }
 
   else if (typeof module !== 'undefined' && module !== null) {
+    //noinspection JSUnresolvedVariable
     module.exports = EasterEgg;
   }
 
