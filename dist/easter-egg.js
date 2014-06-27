@@ -7,7 +7,7 @@
  * Copyright 2014 @gridonic
  * Released under the MIT license
  *
- * Build: 26.6.2014
+ * Build: 27.6.2014
  */
 (function (global) {
 
@@ -28,9 +28,8 @@
     };
 
     // Merging options with defaults
-    // TODO: make sure this works everywhere
     for (var index in defaultOptions) {
-      if (typeof options[index] === 'undefined') {
+      if (defaultOptions.hasOwnProperty(index) && !options.hasOwnProperty(index)) {
         options[index] = defaultOptions[index];
       }
     }

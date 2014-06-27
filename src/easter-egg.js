@@ -17,9 +17,8 @@
     };
 
     // Merging options with defaults
-    // TODO: make sure this works everywhere
     for (var index in defaultOptions) {
-      if (typeof options[index] === 'undefined') {
+      if (defaultOptions.hasOwnProperty(index) && !options.hasOwnProperty(index)) {
         options[index] = defaultOptions[index];
       }
     }
