@@ -57,7 +57,7 @@
       },
       pattern: options.pattern,
       orig_pattern: options.pattern,
-      load: function (link) {
+      load: function () {
         this.addEvent(document, 'keydown', function (e, ref_obj) {
 
           // IE // todo: why do we have to do this?
@@ -97,7 +97,7 @@
           // Success, all keys have been pressed
           if (easter.pattern.length === 0) {
             easter.pattern = easter.orig_pattern;
-            easter.code(link);
+            easter.success();
             e.preventDefault();
 
             return false;
@@ -107,12 +107,21 @@
 
         }, this);
 
-        this.touch.load(link);
+        this.touch.load();
       },
-      code: function (link) {
-        console.log('code');
-        window.location = link;
+
+      // Called when easter egg is successfully finished.
+      success: function () {
+
+          var typeofOnSuccess = typeof options.onSuccess;
+
+          if (typeofOnSuccess === 'function') {
+              options.onSuccess();
+          } else if (typeofOnSuccess === 'string') {
+              window.location = options.onSuccess;
+          }
       },
+
       touch: {
         start_x: 0,
         start_y: 0,
@@ -122,10 +131,9 @@
         capture: false,
         orig_patternTouch: options.patternTouch,
         patternTouch: options.patternTouch,
-        code: function (link) {
-          easter.code(link);
-        },
-        load: function (link) {
+
+        // load function of the touch part
+        load: function () {
 
           easter.addEvent(document, 'touchmove', function (touchEvent) {
 
@@ -145,7 +153,7 @@
 
           easter.addEvent(document, 'touchend', function () {
             if (easter.touch.tap === true) {
-              easter.touch.check_direction(link);
+              easter.touch.check_direction();
             }
           }, false);
 
@@ -163,7 +171,7 @@
         },
 
         // Check the direction of a touch move.
-        check_direction: function (link) {
+        check_direction: function () {
           var x_magnitude = Math.abs(this.start_x - this.stop_x);
           var y_magnitude = Math.abs(this.start_y - this.stop_y);
           var x = ((this.start_x - this.stop_x) < 0) ? '→' : '←';
@@ -200,22 +208,15 @@
           // Success, all patterns have benn pressed
           if (this.patternTouch.length === 0) {
             this.patternTouch = this.orig_patternTouch;
-            this.code(link);
+              easter.success();
           }
         }
       }
     };
 
-    // Initialize easter with new window.location as onSuccess action
-    typeof options.onSuccess === 'string' && easter.load(options.onSuccess);
+//    easter.load();
 
-    // Initialize easter with an onSucccess function
-    if (typeof options.onSuccess === 'function') {
-      easter.code = options.onSuccess;
-      easter.load();
-    }
-
-    return easter;
+    return easter.load();
   };
 
   global.easterEgg = EasterEgg;
