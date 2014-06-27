@@ -154,7 +154,7 @@
             //noinspection JSUnresolvedVariable
             easter.touch.start_y = touchEvent.changedTouches[0].pageY;
 
-              easter.touch.tap = true;
+            easter.touch.tap = true;
             easter.touch.capture = true;
           });
         },

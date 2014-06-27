@@ -17,6 +17,5 @@ TODO
 # TODO
 - UMD support
 - Better, modular structure
-- Improve options and defaults merging
 - Remove URL as callback 'option', not needed
 - Cleanup
