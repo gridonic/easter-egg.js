@@ -6,6 +6,7 @@
 
   EasterEgg = function (options) {
 
+    // Initialize default Options
     var defaultOptions = {
       // Konami Code: '↑', '↑', '↓', '↓', '←', '→', '→', '←', 'b', 'a'
       pattern: [38, 38, 40, 40, 37, 39, 37, 39, 66, 65],
@@ -44,9 +45,14 @@
           obj.attachEvent('on' + type, obj[type + fn]);
         }
       },
+
+      // define patterns
       pattern: options.pattern,
       orig_pattern: options.pattern,
+
+      // Load the EasterEgg
       load: function () {
+
         this.addEvent(document, 'keydown', function (e, ref_obj) {
 
           // IE // todo: why do we have to do this?
@@ -85,10 +91,14 @@
 
           // Success, all keys have been pressed
           if (easter.pattern.length === 0) {
-            easter.pattern = easter.orig_pattern;
-            easter.success();
-            e.preventDefault();
 
+            // Reset the pattern to the full length pattern from the options
+            easter.pattern = easter.orig_pattern;
+
+            // Call the success method
+            easter.success();
+
+            e.preventDefault();
             return false;
           }
 
@@ -102,15 +112,22 @@
       // Called when easter egg is successfully finished.
       success: function () {
 
-          var typeofOnSuccess = typeof options.onSuccess;
+        var typeofOnSuccess = typeof options.onSuccess;
 
-          if (typeofOnSuccess === 'function') {
-              options.onSuccess();
-          } else if (typeofOnSuccess === 'string') {
-              window.location = options.onSuccess;
-          }
+        if (typeofOnSuccess === 'function') {
+
+          // onSuccess is a function, so call it now.
+          options.onSuccess();
+
+        } else if (typeofOnSuccess === 'string') {
+
+          // onSuccess is a string, hopefully a URL. Load the Url
+          window.location = options.onSuccess;
+
+        }
       },
 
+      // Touch events
       touch: {
         start_x: 0,
         start_y: 0,
@@ -121,13 +138,13 @@
         orig_patternTouch: options.patternTouch,
         patternTouch: options.patternTouch,
 
-        // load function of the touch part
+        // Load function of the touch part
         load: function () {
 
           easter.addEvent(document, 'touchmove', function (touchEvent) {
 
-              //noinspection JSUnresolvedVariable
-              if (touchEvent.touches.length == 1 && easter.touch.capture === true) {
+            //noinspection JSUnresolvedVariable
+            if (touchEvent.touches.length == 1 && easter.touch.capture === true) {
 
               //noinspection JSUnresolvedVariable
               var touch = touchEvent.touches[0];
@@ -196,13 +213,18 @@
 
           // Success, all patterns have benn pressed
           if (this.patternTouch.length === 0) {
+
+            // Reset pattern to pattern from options
             this.patternTouch = this.orig_patternTouch;
-              easter.success();
+
+            // Call the success method
+            easter.success();
           }
         }
-      }
+      } // Touch events
     };
 
+    // Return the easter object and start it.
     return easter.load();
   };
 

@@ -4,7 +4,9 @@
     pattern: [38, 38, 40, 40, 37, 37, 39, 39],
     patternTouch: ['↑', '↑', '↓', '↓', '←', '←', '→', '→'],
 
-//      onSuccess: 'http://google.com',
+    /* onSuccess can either be an url or a function. */
+
+//    onSuccess: 'http://google.com',
     onSuccess: function() {
       console.log('Code was entered correctly!');
 
