@@ -11,10 +11,13 @@ TODO
 
 # Build
 
-```$ npm install```
-```$ gulp```
+```sh
+$ npm install
+$ gulp
+```
 
 # TODO
+
 - UMD support
 - Better, modular structure
 - Remove URL as callback 'option', not needed
