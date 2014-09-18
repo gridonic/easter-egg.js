@@ -143,8 +143,7 @@
                     startY: 0,
                     stopX: 0,
                     stopY: 0,
-                    tap: false,
-                    capture: false
+                    tap: false
                 },
                 orig_patternTouch: options.patternTouch,
                 patternTouch: options.patternTouch,
@@ -152,87 +151,46 @@
                 // Load function of the touch part
                 load: function () {
 
-                    /*
+                    var onTouchStart = function (touchEvent) {
+                        easter.touch.touchState.startX = touchEvent.changedTouches[0].pageX;
+                        easter.touch.touchState.startY = touchEvent.changedTouches[0].pageY;
+                        easter.touch.touchState.tap = true;
+                    };
 
-                     var onTouchStart = function (e) {
-                     touchState.startX = e.changedTouches[0].pageX;
-                     touchState.startY = e.changedTouches[0].pageY;
-                     touchState.tap = true;
-                     touchState.capture = true;
-                     };
+                    var onTouchMove = function (touchEvent) {
 
-                     var onTouchMove = function (e) {
-
-                     // Only look at first finger / touch
-                     if (e.touches.length === 1) {
-                     var touch = e.touches[0];
-                     touchState.stopX = touch.pageX;
-                     touchState.stopY = touch.pageY;
-                     touchState.tap = false;
-                     }
-                     };
-
-                     var onTouchEnd = function () {
-                     checkTouchDirection();
-                     };
-                     */
-
-                    easter.addEvent(document, 'touchmove', function (touchEvent) {
-
-                        if (touchEvent.touches.length == 1 && easter.touch.touchState.capture === true) {
+                        // Only look at first finger / touch
+                        if (touchEvent.touches.length == 1 ) {
 
                             var touch = touchEvent.touches[0];
 
                             easter.touch.touchState.stopX = touch.pageX;
                             easter.touch.touchState.stopY = touch.pageY;
                             easter.touch.touchState.tap = false;
-                            easter.touch.touchState.capture = false;
-                            easter.touch.check_direction();
                         }
-                    });
+                    };
 
-                    easter.addEvent(document, 'touchend', function () {
-                        if (easter.touch.touchState.tap === true) {
-                            easter.touch.check_direction();
-                        }
-                    }, false);
+                    var onTouchEnd = function () {
+                        easter.touch.check_direction();
+                    };
 
-                    easter.addEvent(document, 'touchstart', function (touchEvent) {
-                        easter.touch.touchState.startX = touchEvent.changedTouches[0].pageX;
-                        easter.touch.touchState.startY = touchEvent.changedTouches[0].pageY;
-                        easter.touch.touchState.tap = true;
-                        easter.touch.touchState.capture = true;
-                    });
+                    easter.addEvent(document, 'touchstart', onTouchStart);
+                    easter.addEvent(document, 'touchmove', onTouchMove);
+                    easter.addEvent(document, 'touchend', onTouchEnd, false);
                 },
-
-                /*
-                 var checkTouchDirection = function() {
-                 var xMagnitude = Math.abs(touchState.startX - touchState.stopX);
-                 var yMagnitude = Math.abs(touchState.startY - touchState.stopY);
-                 var x = ((touchState.startX - touchState.stopX) < 0) ? '→' : '←';
-                 var y = ((touchState.startY - touchState.stopY) < 0) ? '↓' : '↑';
-                 var result = (xMagnitude > yMagnitude) ? x : y;
-                 var magnitude = (xMagnitude > yMagnitude) ? xMagnitude : yMagnitude;
-                 result = (touchState.tap === true) ? 'tap' : result;
-
-                 // Swipe left or right (need at least a swipe distance of 120px)
-                 if (magnitude > 120 && (result === '→' || result === '←')) {
-                 stepHorizontal(result);
-                 }
-                 };
-                 */
 
                 // Check the direction of a touch move.
                 check_direction: function () {
-                    var xMagnitude = Math.abs(this.touchState.startX - this.touchState.stop_x);
-                    var yMagnitude = Math.abs(this.touchState.startY - this.touchState.stop_y);
-                    var x = ((this.touchState.startX - this.touchState.stop_x) < 0) ? '→' : '←';
+                    var xMagnitude = Math.abs(this.touchState.startX - this.touchState.stopX);
+                    var yMagnitude = Math.abs(this.touchState.startY - this.touchState.stopY);
+                    var x = ((this.touchState.startX - this.touchState.stopX) < 0) ? '→' : '←';
                     var magnitude = (xMagnitude > yMagnitude) ? xMagnitude : yMagnitude;
-                    var y = ((this.touchState.startY - this.touchState.stop_y) < 0) ? '↓' : '↑';
+                    var y = ((this.touchState.startY - this.touchState.stopY) < 0) ? '↓' : '↑';
                     var result = (xMagnitude > yMagnitude) ? x : y;
+
                     result = (this.touchState.tap === true) ? 'tap' : result;
 
-                    // Call a function on input
+                    // Call on input function
                     if (typeof options.onInput === 'function') {
                         options.onInput(result, this.patternTouch, this.orig_patternTouch);
                     }
@@ -255,6 +213,7 @@
                             options.onComboBreak(result, this.patternTouch, this.orig_patternTouch);
                         }
 
+                        // Reset pattern
                         this.patternTouch = this.orig_patternTouch;
                     }
 
