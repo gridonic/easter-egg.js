@@ -1,7 +1,7 @@
 {
   "name": "easter-egg.js",
   "version": "0.5.0",
-  "description": "Listen to keystroke or swipe and touch events and react upon entry of a certain sequence.",
+  "description": "Listens to keystroke or swipe and touch events and react upon entry of a certain sequence.",
   "main": "dist/easter-egg.js",
   "repository": {
     "type": "git",

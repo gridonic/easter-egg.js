@@ -15,7 +15,7 @@
   "authors": [
     "dschenk"
   ],
-  "description": "Listen to keystroke or swipe and touch events and react upon entry of a certain sequence.",
+  "description": "Listens to keystroke or swipe and touch events and react upon entry of a certain sequence.",
   "keywords": [
     "konami",
     "easter egg"
