@@ -2,9 +2,9 @@
 
 Listens to keystroke or swipe and touch events and react upon entry of a certain sequence.
 
-When including easter-egg.js in your html, easterEgg is bound to the global namespace. The code also supports UMD and AMD style module loading.
-
 ## How to use
+
+When including easter-egg.js in your html, easterEgg is bound to the global namespace. The code also supports UMD and AMD style module loading.
 
 Instantiate easterEgg with a settings object. For example:
 
