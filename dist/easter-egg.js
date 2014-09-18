@@ -66,7 +66,7 @@
 
                 this.addEvent(document, 'keydown', function (e, ref_obj) {
 
-                    // IE // todo: why do we have to do this?
+                    // IE // TODO: why do we have to do this?
                     if (ref_obj) {
                         easter = ref_obj;
                     }
@@ -171,7 +171,7 @@
                     };
 
                     var onTouchEnd = function () {
-                        easter.touch.check_direction();
+                        easter.touch.checkDirection();
                     };
 
                     easter.addEvent(document, 'touchstart', onTouchStart);
@@ -180,7 +180,7 @@
                 },
 
                 // Check the direction of a touch move.
-                check_direction: function () {
+                checkDirection: function () {
                     var xMagnitude = Math.abs(this.touchState.startX - this.touchState.stopX);
                     var yMagnitude = Math.abs(this.touchState.startY - this.touchState.stopY);
                     var x = ((this.touchState.startX - this.touchState.stopX) < 0) ? '→' : '←';
@@ -234,7 +234,7 @@
         return easter.load();
     };
 
-    // Add EeasterEgg to the global namespace.
+    // Add EasterEgg to the global namespace.
     global.easterEgg = EasterEgg;
 
     // AMD
