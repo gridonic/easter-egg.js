@@ -21,7 +21,7 @@
     },
 
     onComboBreak: function(entered, current, pattern) {
-      console.log(ENTERED + ': Combo breaker :(');
+      console.log(entered + ': Combo breaker :(');
 
       $('.current').html('');
     }
