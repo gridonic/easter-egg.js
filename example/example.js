@@ -5,8 +5,7 @@
     patternTouch: ['↑', '↑', '↓', '↓', '←', '←', '→', '→'],
 
     /* onSuccess can either be an url or a function. */
-
-//    onSuccess: 'http://google.com',
+    // onSuccess: 'http://google.com',
     onSuccess: function() {
       console.log('Code was entered correctly!');
 
@@ -22,7 +21,7 @@
     },
 
     onComboBreak: function(entered, current, pattern) {
-      console.log('Combo breaker :(');
+      console.log(entered + ': Combo breaker :(');
 
       $('.current').html('');
 
